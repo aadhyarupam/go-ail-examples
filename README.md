@@ -1,12 +1,19 @@
 # go-ail-examples
-This project of Aadhyarupam Innovators demonstrate the code examples of Go language (Golang). 
-It covers building HTTP based microservices, Document database (Google Cloud Firestore), application configuration management (viper) etc.
+
+<img align="right" width="159px" src="https://digital.aadhyarupam.com/images/AadhyarupamRound_Logo_150x150.gif">
+
+This Go based project of Aadhyarupam Innovators demonstrate the code examples for building microservices, integration with cloud services (Google Cloud Firestore), application configuration management (Viper) etc.
 
 You can refer our videos on YouTube channel here: https://www.youtube.com/channel/UC0uB6NjgFG3OvRNkXA24NnA
 
+# Quick Start
+go run main.go
+
+# Pre-requisite
 To execute this project, you require "Go" installed on your system.
 Refer this link to download and install go language(golang): https://go.dev/doc/install
 
+# Setup Firestore
 To setup firestore, follow below steps:
 1. Create Firestore project in Google Cloud Platform
 2. Create service account key and download key as JSON file on your system
