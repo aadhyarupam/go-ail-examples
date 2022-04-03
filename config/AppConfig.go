@@ -46,6 +46,8 @@ const (
 	KEY_OAUTH_GOOGLE_CLIENT_SECRET = "oauth.google.secret"
 	KEY_OAUTH_GOOGLE_REDIRECT_URI  = "oauth.google.redirecturi"
 
+	KEY_SUBSCRIPTION_SERVICE_URL = "subscription-url"
+
 	KEY_HTTP_SERVICE_PORT             = "service.http.port"
 	KEY_HTTP_SERVICE_CONTENT_LOCATION = "service.http.contentlocation"
 
@@ -90,16 +92,17 @@ func AppInit() {
 	remotePath := viper.GetString(KEY_REMOTE_PATH)
 	configstore = viper.New()
 	if remoteProvider != "" && remoteEndpoint != "" && remotePath != "" {
-		// Don't set ConfigType and ConfigName while using remote provider otherwise you might encounter unexpected end of JSON error
-		//configstore.SetConfigType("json")
+		// Don't set ConfigType and ConfigName while using firestore remote provider otherwise you might encounter unexpected end of JSON error
 		//configstore.SetConfigName(CONFIG_FILENAME)
 		configstore.AddRemoteProvider(remoteProvider, remoteEndpoint, remotePath)
+		configstore.SetConfigType("json")
 		err := configstore.ReadRemoteConfig()
 		if err != nil {
-			log.Fatalf("Failed to load remote configuration from %s, Stopping application startup", remoteEndpoint)
+			log.Printf("Failed to load remote configuration from %s, Stopping application startup", remoteEndpoint)
 		} else {
+			appl := configstore.Get("application")
 			useConfigStore = true
-			log.Printf("Successfully loaded configuration from remote provider %s", remoteProvider)
+			log.Printf("Successfully loaded configuration from remote provider %s for %v", remoteProvider, appl)
 		}
 	}
 	log.Printf("Loaded configuration for application %s", GetStringValue("application"))

@@ -24,8 +24,9 @@ import (
 func main() {
 	initialize()
 	mux := http.NewServeMux()
-	log.Println("Starting HTTP subscription service ...")
-	mux.HandleFunc("/api/subscribe", subscriptionHandler)
+	subscriptionUrl := config.GetStringValue(config.KEY_SUBSCRIPTION_SERVICE_URL)
+	log.Printf("Starting HTTP subscription service at %s...", subscriptionUrl)
+	mux.HandleFunc(subscriptionUrl, subscriptionHandler)
 	log.Fatal(http.ListenAndServe(":8010", mux))
 }
 
